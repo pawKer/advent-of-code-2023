@@ -35,22 +35,22 @@ maps.forEach(map => {
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
                 } else if (rangeStart < mapRangeStart && rangeEnd >= mapRangeEnd) { // Interval bigger on both sides
-                    leftoverSeeds.push(rangeStart, mapRangeStart - rangeStart)
-                    leftoverSeeds.push(mapRangeEnd, rangeEnd - mapRangeEnd)
                     seeds[i] = translationRangeStart
                     seeds[i+1] = mapAndTranslationRange
+                    leftoverSeeds.push(rangeStart, mapRangeStart - rangeStart)
+                    leftoverSeeds.push(mapRangeEnd, rangeEnd - mapRangeEnd)
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
-                } else if (rangeStart >= mapRangeStart && rangeEnd >= mapRangeEnd && rangeStart < mapRangeEnd) { // Interval bigger to right
-                    leftoverSeeds.push(mapRangeEnd, rangeEnd - mapRangeEnd)
+                } else if (rangeStart >= mapRangeStart && rangeStart < mapRangeEnd && rangeEnd >= mapRangeEnd ) { // Interval bigger to right
                     seeds[i] = translationRangeStart + (seeds[i] - mapRangeStart)
                     seeds[i+1] = seeds[i+1] - (rangeEnd - mapRangeEnd)
+                    leftoverSeeds.push(mapRangeEnd, rangeEnd - mapRangeEnd)
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
-                } else if (rangeStart < mapRangeStart && rangeEnd < mapRangeEnd && rangeEnd >= mapRangeStart) { // Interval bigger to left
-                    leftoverSeeds.push(rangeStart, mapRangeStart - rangeStart)
+                } else if (rangeEnd < mapRangeEnd && rangeEnd >= mapRangeStart && rangeStart < mapRangeStart) { // Interval bigger to left
                     seeds[i] = translationRangeStart
                     seeds[i+1] = seeds[i+1] - (mapRangeStart - rangeStart)
+                    leftoverSeeds.push(rangeStart, mapRangeStart - rangeStart)
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
                 }
