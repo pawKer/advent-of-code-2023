@@ -1,11 +1,11 @@
 import { stringInputToArray } from "../../utils/utils";
 import { testInput, input } from "../input";
-const inputData = stringInputToArray(testInput)
+const inputData = stringInputToArray(input)
 
 const seeds = inputData[0].split(':')[1].trim().split(' ').map(s => parseInt(s))
 console.log("Original: ", seeds)
 
-const maps = testInput.split('\n\n');
+const maps = input.split('\n\n');
 maps.shift()
 
 maps.forEach(map => {
@@ -31,7 +31,7 @@ maps.forEach(map => {
             if(!modIndices.includes(i)) {
                 console.log(`Range: [${rangeStart}, ${rangeEnd}), Map range: [${mapRangeStart} - ${mapRangeEnd}), Translate range: [${translationRangeStart}, ${translationRangeStart + mapAndTranslationRange})`)
                 if(rangeStart >= mapRangeStart && rangeEnd < mapRangeEnd) { // Interval included
-                    seeds[i] = translationRangeStart + (seeds[i] - nums[1])
+                    seeds[i] = translationRangeStart + (seeds[i] - mapRangeStart)
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
                 } else if (rangeStart < mapRangeStart && rangeEnd >= mapRangeEnd) { // Interval bigger on both sides
@@ -43,7 +43,7 @@ maps.forEach(map => {
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
                 } else if (rangeStart >= mapRangeStart && rangeEnd >= mapRangeEnd && rangeStart < mapRangeEnd) { // Interval bigger to right
                     leftoverSeeds.push(mapRangeEnd, rangeEnd - mapRangeEnd)
-                    seeds[i] = translationRangeStart + (seeds[i] - nums[1])
+                    seeds[i] = translationRangeStart + (seeds[i] - mapRangeStart)
                     seeds[i+1] = seeds[i+1] - (rangeEnd - mapRangeEnd)
                     modIndices.push(i)
                     console.log(`Translated: [${seeds[i]}, ${seeds[i]+seeds[i+1]})`)
@@ -69,9 +69,9 @@ let seedsOnly = []
 let seedsPlus = []
 for(let i = 0; i <= seeds.length - 2; i+=2) {
     seedsOnly.push(seeds[i])
-    for (let j = seeds[i]; j< seeds[i] + seeds[i+1]; j++) {
-        seedsPlus.push(j)
-    }
+    // for (let j = seeds[i]; j< seeds[i] + seeds[i+1]; j++) {
+    //     seedsPlus.push(j)
+    // }
 }
 
 console.log(seedsOnly.length)
