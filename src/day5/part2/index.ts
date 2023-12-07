@@ -29,7 +29,7 @@ maps.forEach(map => {
             const translationRangeStart = nums[0]
 
             if(!modIndices.includes(i)) {
-                console.log(`Range: [${rangeStart}, ${rangeEnd}), Map range: [${mapRangeStart} - ${mapRangeEnd}), Translate range: [${nums[0]}, ${nums[0] + mapAndTranslationRange})`)
+                console.log(`Range: [${rangeStart}, ${rangeEnd}), Map range: [${mapRangeStart} - ${mapRangeEnd}), Translate range: [${translationRangeStart}, ${translationRangeStart + mapAndTranslationRange})`)
                 if(rangeStart >= mapRangeStart && rangeEnd < mapRangeEnd) { // Interval included
                     seeds[i] = translationRangeStart + (seeds[i] - nums[1])
                     modIndices.push(i)
